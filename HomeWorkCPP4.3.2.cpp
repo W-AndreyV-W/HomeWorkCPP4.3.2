@@ -19,16 +19,15 @@ public:
         return *this;
     }
 
-    SmartArray (const SmartArray& other) {
-        if (this != &other) {
-            size_ = other.size_;
-            num_array = other.num_array;
+    // Копирование массива 
+    SmartArray(const SmartArray& other) {
+        size_ = other.size_;
+        num_array = other.num_array;
 
-            array = new int[size_];
+        array = new int[size_];
 
-            for (int i = 0; i < size_; i++) {
-                array[i] = other.array[i];
-            }
+        for (int i = 0; i < size_; i++) {
+            array[i] = other.array[i];
         }
     }
 
@@ -40,8 +39,10 @@ public:
     ~SmartArray() {
         delete[] array;
         array = nullptr;
-        delete[] array_new;
-        array_new = nullptr;
+        if (array_new != nullptr) {
+            delete[] array_new;
+            array_new = nullptr;
+        }
     }
 
     void add_element(int number);
@@ -89,7 +90,7 @@ void SmartArray::add_element(int number) {
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    SmartArray arr(5);
+    SmartArray arr(2);
     arr.add_element(1);
     arr.add_element(4);
     arr.add_element(155);
